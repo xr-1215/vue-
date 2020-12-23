@@ -1,6 +1,6 @@
 /* 管理首页相关数据的vuex子模块 */
 
-import { reqCategoryList } from "1_src/api"
+import { reqCategoryList } from "../../api"
 
 const state = {
     categoryList: [],

@@ -1,19 +1,21 @@
-import Home from '1_src/pages/Home'
-import Search from '1_src/pages/Search'
-import Register from '1_src/pages/Register'
-import Login from '1_src/pages/Login'
+import Home from '../pages/Home'
+import Search from '../pages/Search'
+import Register from '../pages/Register'
+import Login from '../pages/Login'
 
-export default[
+export default [
     {
         path:'/',
-        component:Home
+        component:Home,
     },
     {
-        path:'/search/:keyword?',
+        path:'/search/:keyword',
         component:Search,
         name:'search',
         props(route){
-           return {keyword3:route.params.keyword,keyword4:route.query.keyword2}
+            return {keyword:route.params.keyword,
+                 keyword2:route.query.keyword2
+            }
         }
     },
     {
@@ -27,7 +29,6 @@ export default[
         path:'/login',
         component:Login,
         meta:{
-            //需要隐层footer的路由添加如此配置
             isHideFooter:true
         }
     }
