@@ -11,26 +11,38 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 //配置通用的基础路径和超时
+//service 是一个能发任意ajax请求的函数,当然可以作为对象使用
 const service = axios.create({
-    baseURL:'http://39.99.186.36/api',//基础路径
+    baseURL:'/api',//基础路径
     timeout:200000//链接请求超时时间
 })
 
 //添加请求拦截器  在发送请求前回调
-service.interceptors.request.use((config) =>{
+service.interceptors.request.use((config) => {
+    //显示请求进度条
+    NProgress.start()
    
     //必须返回config ==> 用于内部ajax请求
-    return config
+    return config//后面会根据返回的config,使用xhr对象发ajax请求
 })
 
 //添加响应拦截器
 service.interceptors.response.use(
     response => {//请求成功返回的回调
-      
-        return response
+      //隐藏请求进度条:在响应拦截器成功的回调中
+        NProgress.done()
+        //成功返回的数据不再是response,而是直接响应体数据response.data
+        return response.data
     },
     error => {
-        throw error
+        //隐藏请求进度条:在响应拦截器失败的回调中
+        NProgress.done()
+  
+        //统一处理错误
+        alert(error.message)
+
+        // throw error
+        return Promise.reject(error)
     }
 )
 

@@ -28,10 +28,10 @@
     <div class="bottom">
       <h1 class="logoArea">
         <!-- <a class="logo" title="尚品汇" href="###" target="_blank"> -->
-          <router-link to="/">
+          <router-link to='/' >
           <img src="./images/logo.png" alt="" />
-          </router-link>
         <!-- </a> -->
+        </router-link>
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">
@@ -39,9 +39,9 @@
             type="text"
             id="autocomplete"
             class="input-error input-xxlarge"
-            v-model.trim="keyword"
+            v-model="keyword"
           />
-          <button class="sui-btn btn-xlarge btn-danger"  @click.prevent="search">
+          <button class="sui-btn btn-xlarge btn-danger" type="button" @click.prevent='search'>
             搜索
           </button>
         </form>
@@ -52,20 +52,38 @@
 
 <script>
 export default {
-  name: "Header",
-  data(){
+  name: "",
+  data() {
     return {
       keyword:''
     }
   },
   methods:{
+    /* search(){
+      this.$router.push({name:'search',params:{keyword2:this.keyword}})
+      // this.$router.push(`/search/${this.keyword}?${this.keyword.toUpperCase()}`)
+    } */
     search(){
-      let {keyword} = this;
+      const {keyword} = this;
+      /* //push(path)
       if(keyword){
-        //  this.$router.push(`/search/${keyword}?keyword2=${keyword.toUpperCase()}`)
-        this.$router.push({name:'search',params:{keyword},query:{keyword2:keyword.toUpperCase()}})
+        this.$router.push(`/search/${keyword}?keyword2=${keyword.toUpperCase()}`)
+      }else{
+        this.$router.push('/search')
+      } */
+
+      //push(options)
+      const location = {
+        name:'search'
       }
-      keyword = ''
+      if(keyword.trim()){
+        location.params = {keyword};
+        location.query = {
+          keyword2:this.keyword.toUpperCase()
+        }
+      }
+      this.$router.push(location)
+      // this.keyword = '';
     }
   }
 };

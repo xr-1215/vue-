@@ -1,4 +1,5 @@
 <template>
+  <!-- 底部 -->
   <div class="footer">
     <div class="footer-container">
       <div class="footerList">
@@ -106,7 +107,7 @@
 
 <script>
 export default {
-  name: "",
+  name: "Footer",
 };
 </script>
 

@@ -1,19 +1,20 @@
 <template>
-  <div>
-    <!-- <h2>keyword:{{$route.params.keyword}}</h2>
-    <h2>keyword2:{{$route.query.keyword2}}</h2> -->
-    <h2>keyword:{{keyword}}</h2>
-    <h2>keyword2:{{keyword2}}</h2>
-  </div>
+<div>
+  <div>Search</div>
+  <div>keyword.params:{{$route.params.keyword}}</div>
+  <div>keyword.query:{{$route.query.keyword2}}</div>
+  <div>props.keyword3:{{keyword3}}</div>
+  <div>props.keyword4:{{keyword4}}</div>
+</div>
 </template>
 
 <script>
 export default {
-  name: 'Search',
-  props:['keyword','keyword2']
+  name: '',
+  props:['keyword3','keyword4']
 }
 </script>
 
-<style scoped lang='less'>
+<style scoped lang="less">
 
 </style>
