@@ -16,12 +16,12 @@ export default {
       Header,
       Footer
   },
-  /* async mounted() {
-    const result = await reqCategoryList();
-    console.log(result);
-  }, */
   mounted() {
-      this.$store.dispatch('getCategoryList')
+    /* reqCgetategoryList().then(result => {
+      console.log('result', result)
+    }) */
+    //分发请求获取分类列表的异步action
+    this.$store.dispatch('getCategoryList')
   },
 }
 </script>

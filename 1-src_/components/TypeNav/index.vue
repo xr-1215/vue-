@@ -18,9 +18,15 @@
           <div class="item bo" v-for="c1 in categoryList" :key="c1.categoryId">
             <h3>
               <!-- <a href="">{{ c1.categoryName }}</a> -->
-              <!-- <a href="javascript:;" @click="$router.push(`/search?categoryList=${c1.categoryName}&category1Id=${c1.categoryId}`)"></a> -->
-              <!-- <router-link :to="`/search?categoryName=${c1.categoryName}&category1Id=${c1.categoryId}`">{{c1.categoryName}}</router-link> -->
-              <a href="javascript:;" :data-categoryName='c1.categoryName' :data-category1Id='c1.categoryId'>{{c1.categoryName}}</a>
+              <a href="javascript:;"
+              :data-categoryName ='c1.categoryName' :data-category1Id='c1.categoryId'
+              >{{c1.categoryName}}</a>
+              <!-- <a href="javascript"
+              @click="$router.push(`/search?categoryName=${c1.categoryName}&category1Id=${c1.categoryId}`)"
+              >{{c1.categoryName}}</a> -->
+              <!-- <router-link :to="`/search?categoryName=${c1.categoryName}&category1Id=${c1.categoryId}`">
+              {{c1.categoryName}}
+              </router-link> -->
             </h3>
             <!--  categoryName=图书、音像、电子书刊&category1Id=1 -->
             <div class="item-list clearfix">
@@ -31,14 +37,17 @@
                   :key="c2.categoryId"
                 >
                   <dt>
-                   <!-- <a href="javascript:;" @click="`/search?categoryName=${c2.categoryName}&category2Id=${c2.categoryId}`">{{c2.categoryName}}</a> -->
-                   <a href="javascript:;" :data-categoryName='c2.categoryName' :data-category2Id='c2.categoryId'>{{c2.categoryName}}</a>
-                   <!-- <router-link :to="`/search?categoryName=${c2.categoryName}&category2Id=${c2.categoryId}`">{{c2.categoryName}}</router-link> -->
+                    <!-- {{ c2.categoryName }} -->
+                    <!-- <a href="javascript:;" @click="$router.push(`/search?categoryName=${c2.categoryName}&category2Id=${c2.categoryId}`)">{{c2.categoryName}}</a> -->
+                    <a href="javascript:;" :data-categoryName='c2.categoryName' :data-category2Id='c2.categoryId'>{{c2.categoryName}}</a>
+                    <!-- <router-link :to="`/search?categoryName=${c2.categoryName}&category2Id=${c2.categoryId}`">{{c2.categoryName}}</router-link> -->
                   </dt>
                   <dd>
                     <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                     <!-- <a href="javascript:;" @click="`search/categoryName=${c3.categoryName}&category3Id=${c3.categoryId}`">{{c3.categoryName}}</a> -->
-                     <a href="javascript:;" :data-categoryName='c3.categoryName' :data-category3Id='c3.categoryId'>{{c3.categoryName}}</a>
+                      <!-- <a href="">{{ c3.categoryName }}</a> -->
+                      <!-- <a href="javascript:;" @click="$router.push(`/search?categoryName=${c3.categoryName}&category3Id=${c3.categoryId}`)">{{c3.categoryName}}</a> -->
+                      <!-- <router-link :to="`/search?categoryName=${c3.categoryName}&category3Id=${c3.categoryId}`">{{c3.categoryName}}</router-link> -->
+                      <a href="javascript:;" :data-categoryName='c3.categoryName' :data-category3Id='c3.categoryId'>{{c3.categoryName}}</a>
                     </em>
                   </dd>
                 </dl>
@@ -52,45 +61,50 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
+import { mapState } from "vuex";
 export default {
   name: "TypeNav",
   computed: {
-    categoryList(){
-      return this.$store.state.home.categoryList
-    }
-    // ...mapState({
-    //   categoryList:state => state.home.categoryList
-    // })
-    
+    // categoryList(){
+    //   return this.$store.state.home.categoryList
+    // }
+    ...mapState({
+      categoryList: state =>state.home.categoryList
+      //函数接收的是总状态,返回值作为计算属性值
+    }),
   },
-  methods:{
-    toSearch(event){
-        const target = event.target;
-        //取出data自定义属性值
-        const {categoryname,category1id,category2id,category3id} =target.dataset
+  methods: {
+    toSearch(event) {
+      const target = event.target;
+      console.dir(target);
+      //取出data自定义属性
+      const {
+        categoryname,
+        category1id,
+        category2id,
+        category3id,
+      } = target.dataset;
 
-        // if(target.tagName.toUpperCase() === 'A'){
-          if(categoryname){
-              //准备query参数
-              const query ={
-                categoryName:categoryname
-              }
-              if(category1id){
-                query.category1Id = category1id
-              }else if (category2id){
-                query.category2Id = category2id
-              }else if (category3id){
-                query.category3Id = category3id
-              }
-              this.$router.push({
-                name:'search',
-                query
-              })
+      // if(target.tagName.toUpperCase() === 'A'){
+      if (categoryname) {
+        const query = {
+          categoryName: categoryname,
+        };
+        if (category1id) {
+          query.category1id = category1id;
+        } else if (category2id) {
+          query.category2id = category2id;
+        } else if (category3id) {
+          query.category3id = category3id;
         }
-    }
-  }
-  
+        //跳转到search
+        this.$router.push({
+          name: "search",
+          query,
+        });
+      }
+    },
+  },
 };
 </script>
 
