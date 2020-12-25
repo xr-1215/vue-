@@ -1,5 +1,4 @@
 <template>
-  <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
       <h2 class="all">全部商品分类</h2>
@@ -14,31 +13,21 @@
         <a href="###">秒杀</a>
       </nav>
       <div class="sort">
-        <div class="all-sort-list2" @click="toSearch">
+        <div class="all-sort-list2" @click="tosearch">
           <div class="item bo" v-for="c1 in categoryList" :key="c1.categoryId">
             <h3>
-              <!-- <a href="">{{ c1.categoryName }}</a> -->
-              <!-- <a href="javascript:;" @click="$router.push(`/search?categoryList=${c1.categoryName}&category1Id=${c1.categoryId}`)"></a> -->
-              <!-- <router-link :to="`/search?categoryName=${c1.categoryName}&category1Id=${c1.categoryId}`">{{c1.categoryName}}</router-link> -->
+              <!-- <a href="">{{c1.categoryName}}</a> -->
               <a href="javascript:;" :data-categoryName='c1.categoryName' :data-category1Id='c1.categoryId'>{{c1.categoryName}}</a>
             </h3>
-            <!--  categoryName=图书、音像、电子书刊&category1Id=1 -->
             <div class="item-list clearfix">
               <div class="subitem">
-                <dl
-                  class="fore"
-                  v-for="c2 in c1.categoryChild"
-                  :key="c2.categoryId"
-                >
+                <dl class="fore" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
                   <dt>
-                   <!-- <a href="javascript:;" @click="`/search?categoryName=${c2.categoryName}&category2Id=${c2.categoryId}`">{{c2.categoryName}}</a> -->
-                   <a href="javascript:;" :data-categoryName='c2.categoryName' :data-category2Id='c2.categoryId'>{{c2.categoryName}}</a>
-                   <!-- <router-link :to="`/search?categoryName=${c2.categoryName}&category2Id=${c2.categoryId}`">{{c2.categoryName}}</router-link> -->
+                    <a href="javascript:;" :data-categoryName='c2.categoryName' :data-category2Id='c2.categoryId'>{{c2.categoryName}}</a>
                   </dt>
                   <dd>
                     <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                     <!-- <a href="javascript:;" @click="`search/categoryName=${c3.categoryName}&category3Id=${c3.categoryId}`">{{c3.categoryName}}</a> -->
-                     <a href="javascript:;" :data-categoryName='c3.categoryName' :data-category3Id='c3.categoryId'>{{c3.categoryName}}</a>
+                      <a href="javascript:;" :data-categoryName='c3.categoryName' :data-category3Id='c3.categoryId'>{{c3.categoryName}}</a>
                     </em>
                   </dd>
                 </dl>
@@ -52,49 +41,45 @@
 </template>
 
 <script>
-// import { mapState } from "vuex";
+import {mapState} from 'vuex'
 export default {
   name: "TypeNav",
-  computed: {
-    categoryList(){
-      return this.$store.state.home.categoryList
-    }
-    // ...mapState({
-    //   categoryList:state => state.home.categoryList
-    // })
-    
-  },
-  methods:{
-    toSearch(event){
-        const target = event.target;
-        //取出data自定义属性值
-        const {categoryname,category1id,category2id,category3id} =target.dataset
+  computed:{
+    // categoryList(){
+    //   return this.$store.state.home.categoryList
+    // }
+    ...mapState({
+       categoryList: state => state.home.categoryList, // 函数接收的是总状态, 返回值作为计算属性值
+    }),
 
-        // if(target.tagName.toUpperCase() === 'A'){
-          if(categoryname){
-              //准备query参数
-              const query ={
-                categoryName:categoryname
-              }
-              if(category1id){
-                query.category1Id = category1id
-              }else if (category2id){
-                query.category2Id = category2id
-              }else if (category3id){
-                query.category3Id = category3id
-              }
-              this.$router.push({
-                name:'search',
-                query
-              })
+  },
+      methods: {
+      tosearch(event){
+        const target = event.target;
+        const {categoryname,category1id,category2id,category3id} = target.dataset;
+        if(categoryname){
+          const query = {
+            categoryName:categoryname
+          };
+          if(category1id){
+            query.category1Id = category1id
+          }else if(category2id){
+            query.category2Id = category2id
+          }else if(category3id){
+            query.category3Id = category3id
+          }
+          this.$router.push({
+          name:'search',
+          query
+        })
         }
-    }
-  }
-  
+         
+      }
+    },
 };
 </script>
 
-<style scoped lang="less">
+<style scoped lang='less'>
 .type-nav {
   border-bottom: 2px solid #e1251b;
 

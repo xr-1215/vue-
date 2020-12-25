@@ -1,33 +1,33 @@
 <template>
   <div>
-      <TypeNav></TypeNav>
-      <ListContainer></ListContainer>
-      <TodayRecomment></TodayRecomment>
-      <Rank></Rank>
-      <Like></Like>
-      <Floor></Floor>
-      <Floor></Floor>
-      <Brand></Brand>
+    <TypeNav/>
+    <ListContainer/>
+    <TodayRecommend/>
+    <Rank/>
+    <Like/>
+    <Floor/>
+    <Floor/>
+    <Brand/>
   </div>
 </template>
 
 <script>
-import ListContainer from '../Home/ListContainer'
-import TodayRecomment from '../Home/TodayRecomment'
-import Rank from '../Home/Rank'
-import Like from '../Home/Like'
-import Floor from '../Home/Floor'
-import Brand from '../Home/Brand'
-
+import ListContainer from './ListContainer'
+import TodayRecommend from './TodayRecomment'
+import Rank from './Rank'
+import Like from './Like'
+import Floor from './Floor'
+import Brand from './Brand'
 export default {
   name: 'Home',
   components:{
     ListContainer,
-    TodayRecomment,
+    TodayRecommend,
     Rank,
     Like,
     Floor,
     Brand
+
   }
 }
 </script>

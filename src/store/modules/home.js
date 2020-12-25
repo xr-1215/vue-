@@ -1,19 +1,20 @@
 import {reqCategoryList} from '../../api'
+
 const state = {
-    categoryList:[]
+     categoryList:[]
 }
 
 const mutations = {
-    RECEIVE_CATEGORY_LIST(state,categoryList) {
+    RECEIVE_CATEGORY_LIST(state, categoryList) {
         state.categoryList = categoryList
-    } 
+    }
 }
 
 const actions = {
     async getCategoryList({commit}) {
-        const result = await reqCategoryList();
+        const result = await reqCategoryList()
         if (result.code === 200) {
-            const categoryList = result.data
+            const categoryList = result.data;
             commit('RECEIVE_CATEGORY_LIST',categoryList)
         }
     }

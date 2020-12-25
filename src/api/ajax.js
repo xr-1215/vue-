@@ -1,25 +1,30 @@
+/* 对axios进行二次包装
+1. 配置通用的基础路径和超时
+2. 显示请求进度条
+3. 成功返回的数据不再是response, 而直接是响应体数据response.data
+4. 统一处理请求错误, 具体请求也可以选择处理或不处理 */
+
 import axios from 'axios'
-// import NProgress from 'nprogress'
+import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-//创建新的ajax对象 设置基础路由 超时时间
+
 const service = axios.create({
     baseURL: '/api',
     timeout: 20000
 });
 
-//设置请求拦截器
 service.interceptors.request.use(config => {
+    NProgress.start()
     return config
 })
 
-//设置响应拦截器
 service.interceptors.response.use(
-    //成功的回调
     response => {
+        NProgress.done();
         return response.data
     },
     error => {
-        // throw error
+        NProgress.done();
         return Promise.reject(error)
     }
 )

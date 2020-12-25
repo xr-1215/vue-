@@ -30,8 +30,7 @@
         <!-- <a class="logo" title="尚品汇" href="###" target="_blank"> -->
           <router-link to="/">
           <img src="./images/logo.png" alt="" />
-          </router-link>
-        <!-- </a> -->
+        <!-- </a> --></router-link>
       </h1>
       <div class="searchArea">
         <form action="###" class="searchForm">
@@ -41,7 +40,7 @@
             class="input-error input-xxlarge"
             v-model.trim="keyword"
           />
-          <button class="sui-btn btn-xlarge btn-danger"  @click.prevent="search">
+          <button class="sui-btn btn-xlarge btn-danger" type="button" @click.prevent="tosearch">
             搜索
           </button>
         </form>
@@ -53,19 +52,22 @@
 <script>
 export default {
   name: "Header",
-  data(){
+  data() {
     return {
       keyword:''
     }
   },
   methods:{
-    search(){
+    tosearch(){
       let {keyword} = this;
       if(keyword){
-        //  this.$router.push(`/search/${keyword}?keyword2=${keyword.toUpperCase()}`)
-        this.$router.push({name:'search',params:{keyword},query:{keyword2:keyword.toUpperCase()}})
+        // this.$router.push(`/search/${keyword}?keyword2=${keyword.toUpperCase()}`)
+        this.$router.push({
+          name:'search',
+          params:{keyword},
+          query:{keyword2:keyword.toUpperCase()}
+        })
       }
-      keyword = ''
     }
   }
 };
